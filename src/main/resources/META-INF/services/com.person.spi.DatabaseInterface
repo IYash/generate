@@ -1,0 +1,2 @@
+com.person.spi.MysqlQuery
+com.person.spi.OracleQuery
