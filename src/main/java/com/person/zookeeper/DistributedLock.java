@@ -20,6 +20,12 @@ import java.util.concurrent.locks.Lock;
 
 /**
  * Created by huangchangling on 2018/4/26.
+ * zookeeper的watcher机制主要包括客户端线程，客户端watchermanager和zookeeper服务器三部分
+ * 具体工作流程为：
+ * 客户端在向zookeeper服务器注册watcher的同时，会将watcher对象存储在客户端的watchermanager中，
+ * 当服务端触发watcher事件后，会向客户端发送通知，客户端线程从watchermanager中取出对应的watcher
+ * 对象，根据通知类型和节点路径，来处理回调逻辑，对客户端数据做出相应处理
+ * watch工作机制：客户端注册watcher，服务端处理watcher和客户端回调watcher事件
  */
 public class DistributedLock implements Lock,Watcher {
     private ZooKeeper zk = null;
@@ -44,6 +50,7 @@ public class DistributedLock implements Lock,Watcher {
     public DistributedLock(String config,String lockName){
         this.lockName = lockName;
         try {
+            //在通过客户端接口调用时，可以指定一个watcher接口，以接受服务器时间的回调
             zk = new ZooKeeper(config,sessionTimeout,this);
             Stat stat = zk.exists(ROOT_LOCK,false);
             if (stat == null){
@@ -74,7 +81,7 @@ public class DistributedLock implements Lock,Watcher {
     }
 
     private boolean waitForLock(String wait_lock, long sessionTimeout) throws KeeperException, InterruptedException {
-        Stat stat = zk.exists(ROOT_LOCK+"/"+wait_lock,true);
+        Stat stat = zk.exists(ROOT_LOCK+"/"+wait_lock,true);//这个路径下发生create/delete事件时，监听事件将被触发
         if(stat !=null){
             System.out.println(Thread.currentThread().getName()+"等待锁 "+ ROOT_LOCK+"/"+wait_lock);
             this.countDownLatch = new CountDownLatch(1);
@@ -156,6 +163,9 @@ public class DistributedLock implements Lock,Watcher {
     //节点监视器
     @Override
     public void process(WatchedEvent watchedEvent) {
+        //事件注册是一次性的，因为在每次处理事件之后，就会将相应的watcher注册删除
+        //客户端接收到的服务端watcher事件中并不包含事件更改的具体内容，只是告知发生了这样一个watcher事件
+        //所以客户端在接收到watcher事件之后，需要在回调函数process中对服务端的数据进行进行重新获取才能获得更改的具体内容
         if(this.countDownLatch !=null)
             this.countDownLatch.countDown();
     }
@@ -168,4 +178,5 @@ public class DistributedLock implements Lock,Watcher {
             super(e);
         }
     }
+
 }
