@@ -68,7 +68,7 @@ public class CustomizeThreadPool<Job extends Runnable> implements ThreadPool<Job
     private void addWorker(Job job){
         synchronized (lock){
             int currentSize = workers.size();
-            Worker worker = new Worker(null);
+            Worker worker = new Worker(job);
             workers.add(worker);//用于记录工作中的worker
             Thread t = new Thread(worker ,FIX+(1+currentSize));
             t.start();//启动任务
