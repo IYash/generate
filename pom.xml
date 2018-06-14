@@ -51,6 +51,12 @@
             <artifactId>guava</artifactId>
             <version>20.0</version>
         </dependency>
+        <!--熔断降级-->
+        <dependency>
+            <groupId>com.netflix.hystrix</groupId>
+            <artifactId>hystrix-core</artifactId>
+            <version>1.5.12</version>
+        </dependency>
         <!--分布式锁zookeeper-->
         <dependency>
             <groupId>org.apache.zookeeper</groupId>
