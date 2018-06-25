@@ -71,7 +71,7 @@ public class WeightRoundRobin {
         while (true) {
             currentIndex = (currentIndex + 1) % serverCount;
             if (currentIndex == 0) {
-                currentWeight = currentWeight - gcdWeight;
+                currentWeight = currentWeight - gcdWeight;//按照公约后设置轮询的比率
                 if (currentWeight <= 0) {
                     currentWeight = maxWeight;
                     if (currentWeight == 0) {
