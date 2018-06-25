@@ -34,7 +34,7 @@ public class ConsistHashingUtil {
      * @return
      */
     public static String getServer(SortedMap<Integer,String> sortedMap,String node){
-        //得到贷路又道节点的hash值
+        //得到待路由节点的hash值
         int hash = ConsistHashingUtil.getHash(node);
         //得到大于该hash值的所有map
         SortedMap<Integer,String> subMap = sortedMap.tailMap(hash);
