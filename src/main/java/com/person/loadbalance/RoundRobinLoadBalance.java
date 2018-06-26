@@ -62,14 +62,11 @@ public class RoundRobinLoadBalance implements LoadBalance<ServiceProvider>{
         RoundRobinLoadBalance balance = new RoundRobinLoadBalance();
         //初始化服务
         List<ServiceProvider> ps = balance.init("123",4);
-        int[] cs = new int[ps.size()];
         //服务调用
-        for(int i=0;i<40;i++){
+        for(int i=0;i<10;i++){
             ServiceProvider  s = balance.doSelect(ps);
-            cs[s.getServiceWeight()-1] += 1;
-            //System.out.println(s.getServiceName());
+            System.out.println(s.getServiceName());
         }
-        for (int i=0;i<cs.length;i++) System.out.println(cs[i]);
 
     }
     private List<ServiceProvider> init(String key,int count){
