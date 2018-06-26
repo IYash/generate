@@ -11,6 +11,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * 轮询调度算法的原理是每一次把来自用户的请求轮流分配给内部中的服务器
  * 从1开始，知道N（内部服务器个数），然后重新开始循环，是一种无状态调度
  * 结合服务器的权重实现（服务器性能高的可以适当分配比较大的权重）
+ * 根据权重对列表进行一次排序，调整调用逻辑
  */
 public class RoundRobinLoadBalanceCustom implements LoadBalance<ServiceProvider>{
 
