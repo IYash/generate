@@ -15,8 +15,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class RoundRobinLoadBalance implements LoadBalance<ServiceProvider>{
 
     //记录每个serviceProvider调用的次数
-    private final ConcurrentHashMap<String,AtomicInteger> sequences = new ConcurrentHashMap<>();
-    private final ConcurrentHashMap<String,AtomicInteger> weightSequences = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String,AtomicInteger> sequences = new ConcurrentHashMap<>();//用于记录currentIndex
+    private final ConcurrentHashMap<String,AtomicInteger> weightSequences = new ConcurrentHashMap<>();//用于记录权重的序列
     @Override
     public ServiceProvider doSelect(List<ServiceProvider> providers) {
         String key = providers.get(0).getKey();//同一个服务列表提供的服务是一样的
