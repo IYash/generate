@@ -36,6 +36,7 @@ public class ReferenceTest {
     public void testRf(){
         People p = new People();
         WeakReference<People> wp = new WeakReference<People>(p);
+        p = null;
         int i=0;
         while(wp.get()!=null){
             System.out.println(i++);
