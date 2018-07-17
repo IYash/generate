@@ -79,12 +79,17 @@
                 <artifactId>*</artifactId>
             </exclusion></exclusions>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>org.javassist</groupId>-->
-            <!--<artifactId>javassist</artifactId>-->
-            <!--<version>3.22.0-GA</version>-->
-        <!--</dependency>-->
-
+        <!--groovy脚本使用的尝试-->
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy</artifactId>
+            <version>2.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-jsr223</artifactId>
+            <version>2.5.0</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>generate</finalName>

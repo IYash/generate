@@ -33,6 +33,15 @@ public class ReferenceTest {
         byte[] cs = new byte[size];
     }
     @Test
+    public void testRf(){
+        People p = new People();
+        WeakReference<People> wp = new WeakReference<People>(p);
+        int i=0;
+        while(wp.get()!=null){
+            System.out.println(i++);
+        }
+    }
+    @Test
     public void testReference(){
         System.out.println(ps.size());
         System.out.println(ps.get(0)+"------->"+ps.get(0).name);
