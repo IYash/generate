@@ -36,4 +36,10 @@ public class AtomicIntegerTest {
             countDownLatch.countDown();
         }
     }
+    @Test
+    public void testAfterMax() {
+        Integer mx = Integer.MAX_VALUE;
+        System.out.println( mx );
+        System.out.println(mx + 1);
+    }
 }
