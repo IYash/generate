@@ -6,6 +6,8 @@ import java.util.List;
 
 /**
  * Created by huangchangling on 2018/6/25.
+ * nginx的负载均衡-加权轮询了解一下
+ * https://blog.csdn.net/zhangskd/article/details/50194069
  */
 public class WeightRoundRobin {
 
