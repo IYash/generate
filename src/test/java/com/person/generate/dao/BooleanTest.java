@@ -18,6 +18,16 @@ public class BooleanTest {
         if (c != B) System.out.println("2345====");
     }
 
+    @Test
+    public void testZero(){
+        boolean a = true;
+        try{
+            a = false;
+            return;
+        }finally{
+            if(a) System.out.println("1234=========");
+        }
 
+    }
 
 }
