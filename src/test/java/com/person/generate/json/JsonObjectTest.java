@@ -5,7 +5,9 @@ import org.junit.Test;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by huangchangling on 2018/10/31.
@@ -26,8 +28,13 @@ public class JsonObjectTest {
         People p2=new People("b",2);
         List<People> lps = new ArrayList<>();
         lps.add(p1);lps.add(p2);
+        Map<String,List<People>> m = new HashMap<>();
+        m.put("lps",lps);
         ByteArrayOutputStream e = new ByteArrayOutputStream(1024);
         jsonObjectMapper.writeValue(e,lps);
+        System.out.println(e.toString());
+        e.reset();
+        jsonObjectMapper.writeValue(e,m);
         System.out.println(e.toString());
     }
     class People{
