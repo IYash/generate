@@ -28,7 +28,7 @@ public class NettyMessageDecoder extends LengthFieldBasedFrameDecoder {
         if (frame == null){
             return null;
         }
-        in.resetReaderIndex();
+        in.resetReaderIndex();//用于配合半包处理
         NettyMessage message = new NettyMessage();
         Header header =  new Header();
         header.setCrcCode(in.readInt());
