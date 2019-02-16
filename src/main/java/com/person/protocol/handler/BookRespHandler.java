@@ -19,8 +19,10 @@ public class BookRespHandler extends ChannelHandlerAdapter {
         NettyMessage message = (NettyMessage) msg;
         Header header = message.getHeader();
         if (header != null && header.getType() == MessageType.BOOK_REQ.value()){
-            System.out.println(message+"-------------------server receive message");
+            System.out.println(message.getBody()+"-------------------server receive message");
             ctx.writeAndFlush(buildBookResp());
+        }else{
+            ctx.fireChannelRead(msg);
         }
     }
 

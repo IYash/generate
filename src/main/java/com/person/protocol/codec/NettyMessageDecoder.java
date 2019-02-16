@@ -28,6 +28,7 @@ public class NettyMessageDecoder extends LengthFieldBasedFrameDecoder {
 //        if (frame == null){
 //            return null;
 //        }
+        if(in == null || in.readableBytes()==0) return null;
         NettyMessage message = new NettyMessage();
         Header header =  new Header();
         header.setCrcCode(in.readInt());

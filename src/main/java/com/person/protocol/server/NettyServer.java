@@ -36,9 +36,9 @@ public class NettyServer {
                                 ch.pipeline().addLast("nettyMessageEncoder",new NettyMessageEncoder());
                                 ch.pipeline().addLast("readTimeoutHandler",new ReadTimeoutHandler(50));
                                 ch.pipeline().addLast("loginAuthRespHandler",new LoginAuthRespHandler());
-                                ch.pipeline().addLast("bookHandler",new BookRespHandler());
-                                ch.pipeline().addLast("heartBeatHandler",new HeartBeatRespHandler());
 
+                                ch.pipeline().addLast("heartBeatHandler",new HeartBeatRespHandler());
+                        ch.pipeline().addLast("bookHandler",new BookRespHandler());
 
                     }
                 });

@@ -9,6 +9,8 @@ import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 
 import java.util.Date;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 
 
 /**
@@ -17,35 +19,55 @@ import java.util.Date;
  */
 public class BookReqHandler extends ChannelHandlerAdapter {
 
+    private volatile ScheduledFuture<?> bookReq;
+    private volatile boolean start=true;
 
     @Override
     public void channelRead(ChannelHandlerContext ctx,Object msg){
         NettyMessage message = (NettyMessage) msg;
         Header header = message.getHeader();
-        if (header != null && header.getType() != MessageType.BOOK_RESP.value()){
+        if (header != null && start){
             System.out.println(message+"-------------------client receive message");
-            ctx.writeAndFlush(buildBookReq());
-        }else if(header != null && header.getType() == MessageType.BOOK_RESP.value()){
-            System.out.println(message);
+            start =false;
+            bookReq = ctx.executor().scheduleAtFixedRate(new BookReqHandler.BookTask(ctx),0,10000,TimeUnit.MILLISECONDS);
+        }else if(message.getHeader() != null && message.getHeader().getType() == MessageType.BOOK_RESP.value()) {
+            System.out.println("Client receive server book response message : -----> "+ message);
             ctx.fireChannelRead(msg);
-        }else{
+        }
+        else{
             ctx.fireChannelRead(msg);
         }
     }
+    private class BookTask implements Runnable{
 
+        private final ChannelHandlerContext ctx;
+        public BookTask(ChannelHandlerContext ctx){
+            this.ctx = ctx;
+        }
+        @Override
+        public void run() {
+            NettyMessage bookReq = buildBookReq();
+            System.out.println("Client send book request message to server : " + bookReq);
+            ctx.writeAndFlush(bookReq);
+        }
+    }
     private NettyMessage buildBookReq() {
         NettyMessage message = new NettyMessage();
         Header header = new Header();
         header.setType(MessageType.BOOK_REQ.value());
         message.setHeader(header);
-//        Book book = new Book();
-//        book.bookBuilder().buildAuthor("JackMa").buildPublishDate(new Date()).buildDesc("this is a story about who build a empire");
-//        message.setBody(book);
+        Book book = new Book();
+        book.bookBuilder().buildAuthor("JackMa").buildPublishDate(new Date()).buildDesc("this is a story about who build a empire");
+        message.setBody(book);
         return message;
     }
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx,Throwable cause) throws Exception{
+        if (bookReq !=null){
+            bookReq.cancel(true);
+            bookReq = null;
+        }
         ctx.fireExceptionCaught(cause);
     }
 }

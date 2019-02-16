@@ -45,9 +45,8 @@ public class NettyClient {
                             ch.pipeline().addLast("messageEncoder",new NettyMessageEncoder());
                             ch.pipeline().addLast("readTimeoutHandler",new ReadTimeoutHandler(50));
                             ch.pipeline().addLast("loginAuthHandler",new LoginAuthReqHandler());
-                            ch.pipeline().addLast("bookHandler",new BookReqHandler());
                             ch.pipeline().addLast("heartBeatHandler",new HeartBeatReqHandler());
-
+                            ch.pipeline().addLast("bookHandler",new BookReqHandler());
                         }
                     });
             //发起一部连接操作
