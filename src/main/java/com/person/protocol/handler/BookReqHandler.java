@@ -33,8 +33,7 @@ public class BookReqHandler extends ChannelHandlerAdapter {
         }else if(message.getHeader() != null && message.getHeader().getType() == MessageType.BOOK_RESP.value()) {
             System.out.println("Client receive server book response message : -----> "+ message);
             ctx.fireChannelRead(msg);
-        }
-        else{
+        }else{
             ctx.fireChannelRead(msg);
         }
     }

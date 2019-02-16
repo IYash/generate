@@ -41,12 +41,12 @@ public class NettyClient {
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast(new NettyMessageDecoder(1024*1024,4,4));
-                            ch.pipeline().addLast("messageEncoder",new NettyMessageEncoder());
-                            ch.pipeline().addLast("readTimeoutHandler",new ReadTimeoutHandler(50));
-                            ch.pipeline().addLast("loginAuthHandler",new LoginAuthReqHandler());
-                            ch.pipeline().addLast("heartBeatHandler",new HeartBeatReqHandler());
-                            ch.pipeline().addLast("bookHandler",new BookReqHandler());
+                            ch.pipeline().addLast(new NettyMessageDecoder(1024*1024,4,4))
+                            .addLast("messageEncoder",new NettyMessageEncoder())
+                            .addLast("readTimeoutHandler",new ReadTimeoutHandler(50))
+                            .addLast("loginAuthHandler",new LoginAuthReqHandler())
+                            .addLast("heartBeatHandler",new HeartBeatReqHandler())
+                            .addLast("bookHandler",new BookReqHandler());
                         }
                     });
             //发起一部连接操作

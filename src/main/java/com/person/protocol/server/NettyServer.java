@@ -32,13 +32,12 @@ public class NettyServer {
                 .childHandler(new ChannelInitializer<SocketChannel>() {
                     @Override
                     protected void initChannel(SocketChannel ch) throws Exception {
-                        ch.pipeline().addLast(new NettyMessageDecoder(1024*1024,4,4));
-                                ch.pipeline().addLast("nettyMessageEncoder",new NettyMessageEncoder());
-                                ch.pipeline().addLast("readTimeoutHandler",new ReadTimeoutHandler(50));
-                                ch.pipeline().addLast("loginAuthRespHandler",new LoginAuthRespHandler());
-
-                                ch.pipeline().addLast("heartBeatHandler",new HeartBeatRespHandler());
-                        ch.pipeline().addLast("bookHandler",new BookRespHandler());
+                        ch.pipeline().addLast(new NettyMessageDecoder(1024*1024,4,4))
+                                .addLast("nettyMessageEncoder",new NettyMessageEncoder())
+                                .addLast("readTimeoutHandler",new ReadTimeoutHandler(50))
+                                .addLast("loginAuthRespHandler",new LoginAuthRespHandler())
+                                .addLast("heartBeatHandler",new HeartBeatRespHandler())
+                                .addLast("bookHandler",new BookRespHandler());
 
                     }
                 });

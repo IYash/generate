@@ -51,9 +51,8 @@ public final class NettyMessageEncoder extends MessageToMessageEncoder<NettyMess
         value = null;
         if ( msg.getBody() != null ){
             marshallingEncoder.encode(msg.getBody(),sendBuf);
-        }else
-            //sendBuf.writeInt(0);//会误以为有流
-        sendBuf.setInt(4,sendBuf.readableBytes());//更新消息头中的length字段，1个int4个字节
+        }
+        sendBuf.setInt(4,sendBuf.readableBytes()-8);//更新消息头中的length字段，1个int4个字节,需要确认netty读取包长度使用的方式
         out.add(sendBuf);
     }
 }

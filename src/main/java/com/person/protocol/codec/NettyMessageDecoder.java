@@ -24,11 +24,11 @@ public class NettyMessageDecoder extends LengthFieldBasedFrameDecoder {
     @Override
     protected Object decode(ChannelHandlerContext ctx, ByteBuf in) throws Exception{
         //以下逻辑有问题，解析出来的frame始终为空
-//        ByteBuf frame = (ByteBuf)super.decode(ctx,in);
-//        if (frame == null){
-//            return null;
-//        }
-        if(in == null || in.readableBytes()==0) return null;
+        ByteBuf frame = (ByteBuf)super.decode(ctx,in);
+        if (frame == null){
+            return null;
+        }
+        in.resetReaderIndex();
         NettyMessage message = new NettyMessage();
         Header header =  new Header();
         header.setCrcCode(in.readInt());
@@ -53,7 +53,7 @@ public class NettyMessageDecoder extends LengthFieldBasedFrameDecoder {
             key = null;
             header.setAttachment(attch);
         }
-        if (in.readableBytes() > 4){//用于识别是否还有可读的有效内容
+        if (in.readableBytes() > 0){//用于识别是否还有可读的有效内容
             message.setBody(marshallingDecoder.decode(in));
         }
         message.setHeader(header);
