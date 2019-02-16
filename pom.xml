@@ -79,6 +79,11 @@
                 <artifactId>*</artifactId>
             </exclusion></exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.marshalling</groupId>
+            <artifactId>jboss-marshalling-serial</artifactId>
+            <version>2.0.5.Final</version>
+        </dependency>
         <!--groovy脚本使用的尝试-->
         <dependency>
             <groupId>org.codehaus.groovy</groupId>
@@ -133,6 +138,11 @@
             <!--<artifactId>fastjson</artifactId>-->
             <!--<version>1.2.47</version>-->
         <!--</dependency>-->
+        <dependency>
+            <groupId>org.javassist</groupId>
+            <artifactId>javassist</artifactId>
+            <version>3.20.0-GA</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>generate</finalName>
