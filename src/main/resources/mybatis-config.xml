@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+   <settings>
+     <!-- 表示使用log4j来处理日志 -->
+            <setting name="logImpl" value="LOG4J"/>
+    </settings>
+
+    <!-- 环境变量 连接数据库的信息 -->
+     <environments default="dev">
+     <environment id="dev">
+    <transactionManager type="JDBC"></transactionManager>
+    <dataSource type="POOLED">
+    <property name="url" value="jdbc:mysql://127.0.0.1:3306/test?serverTimezone=UTC&amp;characterEncoding=UTF-8"/>
+    <property name="driver" value="com.mysql.jdbc.Driver"/>
+    <property name="username" value="root"/>
+    <property name="password" value="123456"/>
+    </dataSource>
+    </environment>
+     </environments>
+
+    <!-- 注册Mapper（映射）文件 -->
+     <mappers>
+    <mapper resource="com/person/mybatis/mapper/BlogMapper.xml"/>
+    </mappers>
+   </configuration>
