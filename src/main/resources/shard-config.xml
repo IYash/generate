@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rule>
+	<!-- type:int, string, date -->
+	<table name="shard_blog">
+		<column name="msg_type" type="int" split="_">
+			<value alias="sms">0,1</value>
+			<value alias="mms">2</value>
+			<value alias="traffic">4</value>
+			<value alias="topup">5</value>
+		</column>
+		<!-- <column name="post_time" type="date" format="MMdd" spilt="_">
+			<value />
+		</column> -->
+	</table>
+</rule>

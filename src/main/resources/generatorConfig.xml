@@ -32,7 +32,7 @@
                              targetProject="F:/git/java/generate/src/main/java" type="XMLMAPPER">
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
-        <table tableName="blog" domainObjectName="Blog"
+        <table tableName="shard_blog" domainObjectName="ShardBlog"
                enableCountByExample="true" enableUpdateByExample="true"
                enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true"></table>

@@ -156,6 +156,14 @@
             <artifactId>javassist</artifactId>
             <version>3.20.0-GA</version>
         </dependency>
+
+        <!--xml解析-->
+        <dependency>
+            <groupId>dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>1.6.1</version>
+        </dependency>
+
     </dependencies>
     <build>
         <finalName>generate</finalName>

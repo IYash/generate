@@ -8,7 +8,13 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
      <!-- 表示使用log4j来处理日志 -->
             <setting name="logImpl" value="LOG4J"/>
     </settings>
-
+    <typeHandlers>
+    <typeHandler handler="com.person.mybatis.shardserver.engine.MapTypeHandler"
+                 javaType="java.util.Map" jdbcType="VARCHAR" />
+</typeHandlers>
+    <plugins>
+        <plugin interceptor="com.person.mybatis.shardserver.plugin.ShardPlugin"></plugin>
+    </plugins>
     <!-- 环境变量 连接数据库的信息 -->
      <environments default="dev">
      <environment id="dev">
@@ -24,6 +30,7 @@ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
 
     <!-- 注册Mapper（映射）文件 -->
      <mappers>
+    <mapper resource="com/person/mybatis/mapper/ShardBlogMapper.xml"/>
     <mapper resource="com/person/mybatis/mapper/BlogMapper.xml"/>
     </mappers>
    </configuration>

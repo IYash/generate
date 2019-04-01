@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mapper namespace="com.person.mybatis.mapper.ShardBlogMapper">
+	<sql id="insert" refTables="shard_blog">
+		<param type="clazz">
+			<item name="msgType" type="int" column="msg_type" />
+			<!--<item name="beginTime" type="date" column="post_time" />-->
+		</param>
+	</sql>
+	<sql id="selectByExample" refTables="shard_blog">
+		<param type="clazz">
+			<item name="msgType" type="int" column="msg_type" />
+			<!--<item name="beginTime" type="date" column="post_time" />-->
+		</param>
+	</sql>
+</mapper>
