@@ -6,4 +6,8 @@ package com.person.generic;
  */
 public class FlowerPlant extends AbstractPlant<Flower> {
 
+    @Override
+    public void method(Flower flower) {
+
+    }
 }
